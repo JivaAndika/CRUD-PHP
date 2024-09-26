@@ -1,9 +1,10 @@
 <?php
 require 'function.php';
 
-$teachers = getData("SELECT * FROM teacher_management");
-$students = getData("SELECT * FROM student_management");
-$classes = getData("SELECT * FROM class_management");
+$teachers = getData("teacher_management");
+$students = getData("student_management");
+$classes = getData("class_management");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,9 +37,10 @@ $classes = getData("SELECT * FROM class_management");
     <th class="border border-gray-600 pr-36">Contact</th>
     <th class="border border-gray-600 pr-36">Action</th>
     </tr>
+    <?php $i = 1; ?>
     <?php foreach ($teachers as $teacher): ?>
     <tr class="bg-[#f5f3f3]">
-        <td class=" my-2 text-[#616060] font-semibold text-sm p-4"><?= $teacher['id'] ?></td>
+        <td class=" my-2 text-[#616060] font-semibold text-sm p-4"><?= $i ?></td>
         <td class=" my-2 text-[#616060] font-semibold text-sm p-4"><?= $teacher['name'] ?></td>
         <td class=" my-2 text-[#616060] font-semibold text-sm p-4"><?= $teacher['subject'] ?></td>
         <td class=" my-2 text-[#616060] font-semibold text-sm p-4"><?= $teacher['contact'] ?></td>
@@ -49,6 +51,7 @@ $classes = getData("SELECT * FROM class_management");
                 </div>
             </td>
     </tr>
+    <?php $i++ ?>
     <?php endforeach; ?>
     </table>
     <a href="create-teacher.php" class="font-bold  text-[#fafafa] bg-[#3ABEF9] px-3 py-2 rounded-md mt-10 hover:text-[#ececec] transition-all ease-in-out duration-50" >Add New</a>
@@ -98,9 +101,10 @@ $classes = getData("SELECT * FROM class_management");
             </tr>
         </thead>
         <tbody >
+        <?php $i = 1; ?>
             <?php foreach ($classes as $class): ?>
             <tr class="bg-[#f5f3f3] py-3">
-                <td class="text-[#616060] font-semibold text-sm p-4"><?= $class['id'] ?></td>
+                <td class="text-[#616060] font-semibold text-sm p-4"><?php $i ?></td>
                 <td class="text-[#616060] font-semibold text-sm p-4"><?= $class['class'] ?></td>
                 <td class="text-[#616060] font-semibold text-sm p-4"><?= $class['guardian'] ?></td>
                 <td class="flex justify-center items-center p-4">
@@ -114,6 +118,7 @@ $classes = getData("SELECT * FROM class_management");
                     </div>
                 </td>
             </tr>
+            <?php $i++ ?>
             <?php endforeach; ?>
         </tbody>
     </table>
@@ -125,5 +130,6 @@ $classes = getData("SELECT * FROM class_management");
     
 
     <div class="pb-96"></div>
+    
 </body>
 </html>

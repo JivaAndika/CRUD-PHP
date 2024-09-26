@@ -2,8 +2,9 @@
     require 'function.php';
 
     if(isset($_POST['submit'])){
-        createDataClass($_POST);
+        createData($_POST, "class_management");
     }
+   
 ?>
 
 <!DOCTYPE html>

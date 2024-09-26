@@ -3,10 +3,10 @@ require 'function.php';
 
 $id = $_GET['id'];
 $data = $_POST;
-$class = showDataClass($id);
+$class = showData($id, "class_management");
 
 if(isset($_POST['submit'])){
-    if (editDataClass($data,$id) > 0 ) {
+    if (editData($data,$id, "class_management") > 0 ) {
         echo "<script>
         alert('Data berhasil diedit !');
         window.location.href = 'index.php'

@@ -2,7 +2,7 @@
     require 'function.php';
 
     if(isset($_POST['submit'])){
-        createDataStudent($_POST);
+        createData($_POST,"student_management");
     }
 ?>
 
@@ -19,14 +19,14 @@
 <form action="" method="post" class="flex flex-col  items-center  mx-auto shadow-2xl w-1/2 py-12 px-16 rounded-xl my-20" >
 <h1 class="mb-10 text-2xl font-bold">Create New Data</h1>
 <div class="input_data flex flex-col">
-<label for="name" class="text-[#616060] font-semibold">Student's Name:</label>
-<input type="text" name="name" id="name" required class="w-56 border pl-[5px] border-black rounded-md ">
+<label for="nameStudent" class="text-[#616060] font-semibold">Student's Name:</label>
+<input type="text" name="nameStudent" id="nameStudent" required class="w-56 border pl-[5px] border-black rounded-md ">
 </div>
 <br>
 <br>
 <div class="input_data flex flex-col">
-<label for="class" class="text-[#616060] font-semibold">Student's Class:</label>
-<input type="text" name="class" id="class" required class="w-56 border pl-[5px] border-black rounded-md ">
+<label for="classStudent" class="text-[#616060] font-semibold">Student's Class:</label>
+<input type="text" name="classStudent" id="classStudent" required class="w-56 border pl-[5px] border-black rounded-md ">
 </div>
 <br>
 <br>

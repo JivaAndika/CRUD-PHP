@@ -3,7 +3,7 @@
 
     $id = $_GET['id'];
 
-    if(deleteDataTeacher($id) > 0){
+    if(deleteData($id,"teacher_management") > 0){
         echo "<script>
      alert('Data berhasil dihapus !');
      window.location.href = 'index.php'

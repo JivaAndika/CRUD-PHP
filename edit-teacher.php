@@ -3,10 +3,10 @@ require 'function.php';
 
 $id = $_GET['id'];
 $data = $_POST;
-$teacher = showDataTeacher($id);
+$teacher = showData($id,"teacher_management");
 
 if(isset($_POST['submit'])){
-    if (editDataTeacher($data,$id) > 0 ) {
+    if (editData($data,$id,"teacher_management") > 0 ) {
         echo "<script>
         alert('Data berhasil diedit !');
         window.location.href = 'index.php'
@@ -30,8 +30,8 @@ if(isset($_POST['submit'])){
 <form action="" method="post" class="flex flex-col  items-center  mx-auto shadow-2xl w-1/2 py-12 px-16 rounded-xl my-20" >
 <h1 class="mb-10 text-2xl font-bold">Edit Your Data</h1>
 <div class="input_data flex flex-col">
-<label for="name" class="text-[#616060] font-semibold">Your Name:</label>
-<input type="text" name="name" id="name" required value="<?= $teacher[0]['name'] ?>" class="w-56 border pl-[5px] border-black rounded-md ">
+<label for="nameTeacher" class="text-[#616060] font-semibold">Your Name:</label>
+<input type="text" name="nameTeacher" id="nameTeacher" required value="<?= $teacher[0]['name'] ?>" class="w-56 border pl-[5px] border-black rounded-md ">
 </div>
 <br>
 <br>

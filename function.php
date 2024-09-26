@@ -8,25 +8,40 @@
   if(!$connection){
     echo 'Gagal terhubung!';
   }
- function getData($query){
+ function getData($table){
   global $connection;
-  $result = mysqli_query($connection,$query);
+  $table = mysqli_query($connection,"SELECT * FROM $table");
   $rows = [];
-  while ($row = mysqli_fetch_assoc($result)){
-    $rows [] = $row;
+  while ($row = mysqli_fetch_assoc($table)){
+    $rows[] = $row;
   }
   return $rows;
  }
-
 //  FUNCTION CLASS
-function createDataClass($data){
+function createData($data, $table){
   global $connection;
 
+  if($table === 'class_management'){
   $class = $data['class'];
   $guardian = $data['guardian'];
-
-  $query = "INSERT INTO class_management VALUES ('', '$class', '$guardian')";
-  mysqli_query($connection,$query);
+  $query = mysqli_query($connection,"INSERT INTO $table VALUES ('', '$class', '$guardian')");
+  }
+  elseif ($table === 'student_management'){
+  $nameStudent = $data['nameStudent'];
+  $classStudent = $data['classStudent'];
+  $scoreStudent = $data['score'];
+  $query = mysqli_query($connection,"INSERT INTO $table VALUES ('', '$nameStudent', '$classStudent', '$scoreStudent')");
+  }
+  elseif($table === 'teacher_management'){
+  $nameTeacher = $data['nameTeacher'];
+  $subject = $data['subject'];
+  $contact = $data['contact'];
+  $query = mysqli_query($connection,"INSERT INTO $table VALUES  ('', '$nameTeacher', '$subject', '$contact') ");
+  }
+  else{
+    return false;
+  }
+  // " ('', '$class', '$guardian')";
 
   if (mysqli_affected_rows($connection) > 0){
       echo "<script>
@@ -40,142 +55,47 @@ function createDataClass($data){
     }
 }
 
-function deleteDataClass($id){
+function deleteData($id, $table){
   global $connection;
-  $query = "DELETE  FROM class_management WHERE id = $id";
-  mysqli_query($connection, $query);
+  mysqli_query($connection, "DELETE  FROM $table WHERE id = $id");
   return mysqli_affected_rows($connection);
 }
 
-function editDataClass($data,$id){
+function editData($data,$id,$table){
   global $connection;
 
-  $class = $data['class'];
-  $guardian = $data['guardian'];
+  if($table === 'class_management'){
+    $class = $data['class'];
+    $guardian = $data['guardian'];
+    $query = mysqli_query($connection,"UPDATE $table SET class = '$class', guardian = '$guardian' WHERE id = $id ");
+    }
+    elseif ($table === 'student_management'){
+    $nameStudent = $data['nameStudent'];
+    $classStudent = $data['classStudent'];
+    $scoreStudent = $data['score'];
+    $query = mysqli_query($connection,"UPDATE $table SET name = '$nameStudent', class = '$classStudent', score = '$scoreStudent' WHERE id = $id");
+    }
+    elseif($table === 'teacher_management'){
+    $nameTeacher = $data['nameTeacher'];
+    $subject = $data['subject'];
+    $contact = $data['contact'];
+    $query = mysqli_query($connection,"UPDATE $table SET name = '$nameTeacher', subject = '$subject', contact = '$contact' WHERE id = $id");
+    }
+    else{
+      return false;
+    }
+  
 
-  $query = "UPDATE class_management SET class = '$class', guardian = '$guardian' WHERE id = $id ";
-
-  mysqli_query($connection,$query);
+  
   return mysqli_affected_rows($connection);
 }
 
-function showDataClass($id){
+function showData($id, $table){
   global $connection;
-  $query = "SELECT * FROM class_management WHERE id = $id";
-  $result =  mysqli_query($connection, $query);
+  $table =  mysqli_query($connection, "SELECT * FROM $table WHERE id = $id");
   $rows = [];
-  while ($row = mysqli_fetch_assoc($result)){
+  while ($row = mysqli_fetch_assoc($table)){
     $rows[] = $row;
   }
   return $rows;
 }
-//  FUNCTION STUDENT
-function createDataStudent($data){
-  global $connection;
-
-  $name = $data['name'];
-  $class = $data['class'];
-  $score = $data['score'];
-
-  $query = "INSERT INTO student_management VALUES ('', '$name', '$class', '$score')";
-
-  mysqli_query($connection, $query);
-  if (mysqli_affected_rows($connection) > 0){
-    echo "<script>
-    alert('Data berhasil ditambahkan !');
-    window.location.href = 'index.php'
-    </script>";
-  }else {
-    echo "<script>
-    alert('Data Gagal ditambahkan')";
-  
-  }
-}
-function deleteDataStudent($id){
-  global $connection;
-  $query = "DELETE FROM student_management WHERE id = $id";
-  mysqli_query($connection,$query);
-  return mysqli_affected_rows($connection);
-}
-
-function editDataStudent($data, $id)  {
-  global $connection;
-
-  $name = $data['name'];
-  $class = $data['class'];
-  $score = $data['score'];
-
-  $query = "UPDATE student_management SET name = '$name', class = '$class', score = '$score' WHERE id = $id";
-
-  mysqli_query($connection, $query);
-  return mysqli_affected_rows($connection);
-  
-}
-
-function showDataStudent($id){
-  global $connection;
-  $query = "SELECT * FROM student_management WHERE id = $id";
-  $result = mysqli_query($connection, $query);
-  $rows = [];
-  while ($row = mysqli_fetch_assoc($result)){
-    $rows[] = $row;
-  }
-  return $rows;
-}
-
-//  FUNCTION TEACHER
-
- function createDataTeacher($data){
-  global $connection;
-
-  $name = $data['name'];
-  $subject = $data['subject'];
-  $contact = $data['contact'];
-
-  $query = "INSERT INTO teacher_management VALUES ('', '$name', '$subject', '$contact')";
-
-  mysqli_query($connection,$query);
-
-  if(mysqli_affected_rows($connection) > 0){
-    echo "<script>
-    alert('Data berhasil ditambahkan !');
-    window.location.href = 'index.php'
-    </script>";
-  }else {
-    echo "<script>
-    alert('Data Gagal ditambahkan')";
-  
-  }
- }
- function deleteDataTeacher($id){
-  global $connection;
-  $query = "DELETE FROM teacher_management WHERE id = $id";
-  mysqli_query($connection,$query);
-  return mysqli_affected_rows($connection);
- }
-
- function editDataTeacher($data,$id){
-  global $connection;
-
-  $name = $data['name'];
-  $subject = $data['subject'];
-  $contact = $data['contact'];
-
-  $query = "UPDATE teacher_management SET name = '$name', subject = '$subject', contact = '$contact' WHERE id = $id";
-
-  mysqli_query($connection, $query);
-  return mysqli_affected_rows($connection);
- }
-
-function showDataTeacher($id){
-  global $connection;
-  $query = "SELECT * FROM teacher_management WHERE id = $id";
-  $result = mysqli_query($connection,$query);
-  $rows = [];
-  while ($row = mysqli_fetch_assoc($result)){
-    $rows[] = $row;
-  }
-  return $rows;
-}
-
-//  

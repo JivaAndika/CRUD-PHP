@@ -3,7 +3,7 @@
 
     $id = $_GET['id'];
 
-    if(deleteDataClass($id) > 0){
+    if(deleteData($id, "class_management") > 0){
         echo "<script>
      alert('Data berhasil dihapus !');
      window.location.href = 'index.php'
